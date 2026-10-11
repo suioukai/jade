@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Jade</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#D63A00">
+</head>
+<body style="margin:0;font-family:'Hiragino Sans',sans-serif;background:#F4F4F3;color:#6B6766">
+<div id="ld" style="padding:40px 20px;text-align:center;font-size:14px"><div style="font-size:22px;font-weight:700;color:#D63A00;letter-spacing:.06em">Jade</div>読み込んでいます…</div>
+<script>
+// 画面の本体は Apps Script（翠桜会 backoffice）から読み込む。ここにはデータも秘密の値も置かない。
+var SRC='https://script.google.com/macros/s/AKfycbykzLWalPQvWPdZOmUGiYPKGxXpuEKS5LAPmYkqosIiYP4uX6sScu_jHKzq0kxzGCwp/exec?asset=site';
+function show(h){document.open();document.write(h);document.close();}
+var cached=null;try{cached=localStorage.getItem('jade_shell');}catch(e){}
+var latest=fetch(SRC,{cache:'no-store'}).then(function(r){return r.text();}).then(function(h){
+  if(h.indexOf('<html')<0)throw new Error('bad');
+  try{localStorage.setItem('jade_shell',h);}catch(e){}
+  return h;
+});
+if(cached){show(cached);}
+else{latest.then(show).catch(function(){document.getElementById('ld').textContent='読み込めませんでした。電波のよい所でもう一度開いてください。';});}
+</script>
+</body>
+</html>
